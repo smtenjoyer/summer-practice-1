@@ -1,297 +1,257 @@
+#include<Windows.h>
+#include "gameMenu.h"
 #include <C:/Users/Sopha/Downloads/SFML-2.6.1-windows-gcc-13.1.0-mingw-64-bit/SFML-2.6.1/include/SFML/Graphics.hpp>
-#include <iostream>
-#include <vector>
-#include <random>
-#include <algorithm>
-#include <memory>
+#include<C:/Users/Sopha/Downloads/SFML-2.6.1-windows-gcc-13.1.0-mingw-64-bit/SFML-2.6.1/include/SFML/Audio.hpp>
+#include "Animator.h"
 
+
+#include "menupik.h"
 using namespace sf;
-// Константы для размеров карты и окна 
-const int CARD_WIDTH = 71; 
-const int CARD_HEIGHT = 96; 
-const int WINDOW_WIDTH = 800; 
-const int WINDOW_HEIGHT = 600; 
-const int NUM_PLAYERS = 2; // Количество игроков 
-const int CARDS_PER_PLAYER = 36/NUM_PLAYERS; // Количество карт на игрока 
-// Структура для представления карты 
-struct Card { 
-    int value; 
-    std::string suit; 
-    sf::Texture texture; 
-    sf::Sprite sprite; 
- 
-    // Конструктор для инициализации карты 
-    Card(int value, const std::string& suit, const sf::Texture& texture) : value(value), suit(suit), texture(texture) { 
-        sprite.setTexture(texture); 
-        sprite.setScale(static_cast<float>(CARD_WIDTH) / texture.getSize().x, 
-                        static_cast<float>(CARD_HEIGHT) / texture.getSize().y); 
-    } 
+void InitTexts(Text& mtext, float xpos, float ypos, String str, int size_font=60,Color menu_text_color=Color::White, int bord=0, Color border_color = Color::Black )
+{
+    mtext.setCharacterSize(size_font);
+    mtext.setPosition(xpos, ypos);
+    mtext.setString(str);
+    mtext.setFillColor(menu_text_color);
+    mtext.setOutlineThickness(bord);
+    mtext.setOutlineColor(border_color);
 
-}; 
- 
-// Функция для создания колоды карт 
+}
 
-std::vector<Card> createDeck(const sf::Texture& cardTexture) { 
-    std::vector<Card> deck; 
-    std::vector<std::string> suits = {"pik", "cherv", "bub", "cres"}; 
- 
-    for (int value = 6; value <= 14; ++value) //от 2 но загрузить еще карты
-    { 
-        for (const std::string& suit : suits) { 
-            // Использование 'J', 'Q', 'K', 'A' для значений 11, 12, 13, 14 
-            std::string filename = "C:/Users/Sopha/Desktop/proj/cards/" + std::to_string(value) + suit + ".png"; 
-            if (value == 11) filename = "C:/Users/Sopha/Desktop/proj/cards/J" + suit + ".png"; 
-            if (value == 12) filename = "C:/Users/Sopha/Desktop/proj/cards/Q" + suit + ".png"; 
-            if (value == 13) filename = "C:/Users/Sopha/Desktop/proj/cards/K" + suit + ".png"; 
-            if (value == 14) filename = "C:/Users/Sopha/Desktop/proj/cards/A" + suit + ".png"; 
+void GamaStart()
+{
+    RenderWindow Play(VideoMode::getDesktopMode(), L"Уровень", Style::Fullscreen);
 
-            // Используем unique_ptr для управления текстурой
-            auto texturePtr = std::make_unique<sf::Texture>(); 
-            if (!texturePtr->loadFromFile(filename)) { 
-                std::cerr << "Ошибка загрузки текстуры: " << filename << std::endl; 
-            } else {
-                deck.push_back(Card(value, suit, *texturePtr)); // Передаем ссылку на текстуру
+
+    RectangleShape background_play(Vector2f(1920, 1080));
+
+    Texture texture_play;
+    if (!texture_play.loadFromFile("C:/Users/Sopha/Desktop/proj/table.png")) exit(1);
+    background_play.setTexture(&texture_play);
+
+    while (Play.isOpen())
+    {
+        Event event_play;
+        while (Play.pollEvent(event_play))
+        {
+            if (event_play.type == Event::KeyPressed)
+            {
+                if (event_play.key.code == Keyboard::Escape) { Play.close(); }
             }
         }
+        Play.clear();
+        Play.draw(background_play);
+        Play.display();
     }
-    // Добавление карт рубашкой вверх
-    for (int i = 0; i < 36; ++i) {
-        deck.push_back(Card(0, "back", cardTexture));
-    }
-    return deck; 
-} 
-// Функция для перемешивания колоды карт 
-void shuffleDeck(std::vector<Card>& deck) { 
-    std::random_device rd; 
-    std::mt19937 g(rd()); 
-    std::shuffle(deck.begin(), deck.end(), g); 
-} 
- 
-// Функция для получения карты из колоды 
-Card drawCard(std::vector<Card>& deck) { 
-    Card card = deck.back(); 
-    deck.pop_back(); 
-    return card; 
-} 
-// Функция для проверки наличия пары в руке 
-bool hasPair(const std::vector<Card>& hand) {
-    for (size_t i = 0; i < hand.size(); ++i) {
-        for (size_t j = i + 1; j < hand.size(); ++j) {
-            if (hand[i].value == hand[j].value && (hand[i].value != 12 && hand[i].suit !="pik")) {
-                return true; 
+}
+
+//Настройки
+void Options()
+{
+    RenderWindow Options(VideoMode::getDesktopMode(), L"Настройки", Style::Fullscreen);
+
+    RectangleShape background_opt(Vector2f(1920, 1080));
+    Texture texture_opt;
+    if (!texture_opt.loadFromFile("C:/Users/Sopha/Desktop/proj/cards/6pik.png")) exit(2);
+
+    background_opt.setTexture(&texture_opt);
+    while (Options.isOpen())
+    {
+        Event event_opt;
+        while (Options.pollEvent(event_opt))
+        {
+            if (event_opt.type == Event::Closed) Options.close();
+            if (event_opt.type == Event::KeyPressed)
+            {
+                if (event_opt.key.code == Keyboard::Escape) Options.close();
             }
         }
+        Options.clear();
+        Options.draw(background_opt);
+        Options.display();
     }
-    return false;
+
 }
 
-// Функция для поиска пары в руке
-std::pair<size_t, size_t> findPair(const std::vector<Card>& hand) {
-    for (size_t i = 0; i < hand.size(); ++i) {
-        for (size_t j = i + 1; j < hand.size(); ++j) {
-            if (hand[i].value == hand[j].value && (hand[i].value != 12 && hand[i].suit !="pik")) {
-                return std::make_pair(i, j); 
+// Об Игре
+void About_Game()
+{
+    RenderWindow About(VideoMode::getDesktopMode(), L"Правила игры", Style::Fullscreen);
+
+    RectangleShape background_ab(Vector2f(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().height));
+    Texture texture_ab;
+    if (!texture_ab.loadFromFile("C:/Users/Sopha/Desktop/proj/cards/Qpik.png")) exit(3);
+    background_ab.setTexture(&texture_ab);
+
+    // Шрифт для названия экрана
+    Font font;
+    if (!font.loadFromFile("C:/Users/Sopha/Desktop/proj/troika.otf")) exit(6);
+    // Текст с названием экрана
+    Text Titul;
+    Titul.setFont(font);
+    InitTexts(Titul, 500, 50, L"Описание игры", 120, Color(237, 147, 0), 3);
+
+    while (About.isOpen())
+    {
+        Event event_play;
+        while (About.pollEvent(event_play))
+        {
+            if (event_play.type == Event::Closed) About.close();
+            if (event_play.type == Event::KeyPressed)
+            {
+                if (event_play.key.code == Keyboard::Escape) About.close();
             }
         }
+        About.clear();
+        About.draw(background_ab);
+        // About.draw(Titul);
+        About.display();
     }
-    return std::make_pair(-1, -1); 
 }
 
-// Функция для проверки выигрыша 
-bool checkWin(const std::vector<Card>& hand) {  
-    // Проверка, есть ли у игрока карты в руке 
-    return hand.empty();
-}
-// Функция для отрисовки карт 
-void drawCards(RenderWindow& window, std::vector<Card>& hand, int playerIndex) { 
-    for (size_t i = 0; i < hand.size(); ++i) { 
-        // Определение позиции карты на экране 
-        float x = i * CARD_WIDTH + 100 + playerIndex * (800 / 2);  
-        float y = (playerIndex == 0) ? 600 - 96 - 50 : 50;  
-
-        // Создайте копию sf::Sprite
-        sf::Sprite spriteCopy = hand[i].sprite; 
-        spriteCopy.setPosition(x, y);  
-        window.draw(spriteCopy); 
-    } 
-}
-
-int main() {
+int main() 
+{
     setlocale(LC_ALL, "Russian");
     // Инициализация окна SFML
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pik Dam");
-
-    // Загрузка текстуры карт
-    sf::Texture cardTexture;
-    if (!cardTexture.loadFromFile("C:/Users/Sopha/Desktop/proj/cards/back.png")) {
-        std::cerr << "Ошибка загрузки текстуры карты." << std::endl;
-        return 1;
-    }
-
-    // Создание колоды карт
-    std::vector<Card> deck = createDeck(cardTexture);
-    shuffleDeck(deck);
-
-    // Загрузка текстуры стола
-    sf::Texture tableTexture;
-    if (!tableTexture.loadFromFile("C:/Users/Sopha/Desktop/proj/table.png")) {
-        std::cerr << "Ошибка загрузки текстуры стола." << std::endl;
-        return 1;
-    }
-    sf::Sprite tableSprite(tableTexture);
-    tableSprite.setScale(static_cast<float>(WINDOW_WIDTH) / tableTexture.getSize().x,
-                        static_cast<float>(WINDOW_HEIGHT) / tableTexture.getSize().y);
-
-    // Руки игрока и противника
-    // std::vector<Card> playerHand;
-    // std::vector<Card> opponentHand;
-
-    // Руки игроков
-    std::vector<std::vector<Card>> playerHands(NUM_PLAYERS);
+    sf::RenderWindow window(sf::VideoMode::getDesktopMode(),  L"Карточные игры", Style::Fullscreen);
     
-    // Раздача карт 
-    // for (int i = 0; i < 18; ++i) { // Раздаем по 18 карт если играют 2
-    //     playerHand.push_back(drawCard(deck));
-    //     opponentHand.push_back(drawCard(deck));
-    // }
-    // Раздача карт 
-    for (int i = 0; i < NUM_PLAYERS; ++i) { 
-        for (int j = 0; j < CARDS_PER_PLAYER; ++j) {
-            playerHands[i].push_back(drawCard(deck));
-        }
+    // Делаем окно windows прозрачным
+    SetWindowLong(window.getSystemHandle(), GWL_EXSTYLE, GetWindowLong(window.getSystemHandle(), GWL_EXSTYLE) | WS_EX_LAYERED);
+    SetLayeredWindowAttributes(window.getSystemHandle(), 0, 0, LWA_COLORKEY);
+
+    window.setMouseCursorVisible(false); //отключаем видимость курсора
+
+    // Размер экрана
+    float widht = sf::VideoMode::getDesktopMode().width;
+    float height = sf::VideoMode::getDesktopMode().height;
+
+    //Заставка загрузки
+    Texture texthome;
+    texthome.loadFromFile("C:/Users/Sopha/Desktop/proj/window.png");
+    RectangleShape homecls(Vector2f(640, 280));
+    homecls.setTexture(&texthome);
+    homecls.setPosition(Vector2f(widht / 2 - homecls.getLocalBounds().width/2, height / 2- homecls.getLocalBounds().height/2));
+    window.draw(homecls);
+    window.display();
+
+    // Звуковые эффекты
+    SoundBuffer buffer, buf_return;
+
+    if (!buffer.loadFromFile("C:/Users/Sopha/Desktop/proj/audio/audiomenu2.wav")) return 22;
+    if (!buf_return.loadFromFile("C:/Users/Sopha/Desktop/proj/audio/audiomenu5.wav")) return 22;
+    Sound sound, sound_return;
+    sound.setBuffer(buffer);
+    sound_return.setBuffer(buf_return);
+
+    Music music;
+    if (!music.openFromFile("C:/Users/Sopha/Desktop/proj/audio/horror.ogg")) return 25;
+    music.setLoop(true);
+    music.setVolume(50);
+    music.play();
+
+    Music musicF;
+    if (!musicF.openFromFile("C:/Users/Sopha/Desktop/proj/audio/faer.ogg")) return 28;
+    musicF.setLoop(true);
+    musicF.setVolume(50);
+    musicF.play();
+
+    //Название пунктов меню
+    std::vector<String> name_menu{L"Пиковая Дама",L"Дурак",L"Пасьянс",L"Выход"};
+
+    //Объект меню
+    game::GameMenu mymenu(window, 950, 350, 100, 120, name_menu);
+    // Установка цвета отображения меню
+    mymenu.setColorTextMenu(Color(237, 147, 0), Color::Red, Color::Black);
+    mymenu.AlignMenu(2);
+
+    // Плавное появление из черного
+    Texture texture_back;
+    if (!texture_back.loadFromFile("C:/Users/Sopha/Desktop/proj/image/t.jpg")) return 51;
+    Sprite backgroundBlack;
+    backgroundBlack.setColor(sf::Color(255, 255, 255, 255));
+    backgroundBlack.setTexture(texture_back);
+    backgroundBlack.setTextureRect(IntRect(0, 0, widht, height));
+    float alpha = 255;
+
+
+    // Устанавливаем фон экрана меню
+    RectangleShape background(Vector2f(widht, height));
+
+    sf::Texture texture_window;
+    if (!texture_window.loadFromFile("C:/Users/Sopha/Desktop/proj/window.png")) {
+        std::cerr << "Ошибка загрузки текстуры окна." << std::endl;
+        return 4;
     }
-    // Флаг хода (true - ход игрока, false - ход противника)
-    bool playerTurn = true; 
-    // Индекс текущего игрока (0 - первый игрок, 1 - второй)
-    int currentPlayer = 0;
+    background.setTexture(&texture_window);
+    
+    //Шрифт
+    Font font;
+    if (!font.loadFromFile("C:/Users/Sopha/Desktop/proj/troika.otf")) return 5;
+    // Текст
+    Text Titul;
+    Titul.setFont(font);
+    InitTexts(Titul, 480, 50, L"Карточные игры", 150, Color(237,147,0), 3);
 
-     // Игровой цикл 
-    while (window.isOpen()) { 
-        // Обработка событий 
-        Event event; 
-        while (window.pollEvent(event)) { 
-            if (event.type == Event::Closed) { 
-                window.close(); 
-            }
-            // Обработка нажатия мыши (только если ход игрока)
-            if (event.type == Event::MouseButtonPressed && playerTurn) {
-                // Получение позиции мыши
-                Vector2i mousePos = Mouse::getPosition(window);
+    // Анимация костра
+    Vector2i spriteSize(300, 313);
 
-                // Проверка, попала ли мышь на карту противника
-                for (size_t i = 0; i < playerHands[(currentPlayer + 1) % NUM_PLAYERS].size(); ++i) {
-                    // Рассчитываем прямоугольник для карты
-                    FloatRect cardRect = playerHands[(currentPlayer + 1) % NUM_PLAYERS][i].sprite.getGlobalBounds();
-                    if (cardRect.contains(mousePos.x, mousePos.y)) {
-                        // Взять карту противника
-                        playerHands[currentPlayer].push_back(playerHands[(currentPlayer + 1) % NUM_PLAYERS][i]);
-                        // Удалить карту из руки противника
-                        playerHands[(currentPlayer + 1) % NUM_PLAYERS].erase(playerHands[(currentPlayer + 1) % NUM_PLAYERS].begin() + i);
-                        // Проверка наличия пары в руке текущего игрока
-                        if (hasPair(playerHands[currentPlayer])) {
-                            // Найти пару
-                            std::pair<size_t, size_t> pairIndices = findPair(playerHands[currentPlayer]);
-                            // Удалить пару из руки
-                            playerHands[currentPlayer].erase(playerHands[currentPlayer].begin() + pairIndices.second);
-                            playerHands[currentPlayer].erase(playerHands[currentPlayer].begin() + pairIndices.first);
+    Sprite sprite;
+    sprite.setPosition(440, 780);
+    Animator animator(sprite);
+
+    // auto& idleAnimation = animator.CreateAnimation("Idle", "C:/Users/Sopha/Desktop/proj/image/f.png", seconds(1), true);
+
+    // idleAnimation.AddFrames(Vector2i(0, 0), spriteSize, 5, 4);
+
+
+    Clock clock;
+    SetLayeredWindowAttributes(window.getSystemHandle(), 100, 0, LWA_COLORKEY);
+
+    while (window.isOpen())
+    {
+        Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == Event::KeyReleased)
+            {
+                // События выбра пунктов меню
+                if (event.key.code == Keyboard::Up) {mymenu.MoveUp(); }       // вверх
+                if (event.key.code == Keyboard::Down) {mymenu.MoveDown(); }  // вниз
+                if (event.key.code == Keyboard::Return)                                     // выбор
+                {
+                    music.pause(); musicF.pause();
+                    sound_return.play();
+                        // Переходим на выбранный пункт меню
+                        switch (mymenu.getSelectedMenuNumber())
+                        {
+                            case 0:Menu_pik_Dam();  break;
+                            case 1:Options();     break;
+                            case 2:About_Game();  break;
+                            case 3:window.close(); break;
                         }
-                        // Передать ход следующему игроку
-                        playerTurn = false;
-                        currentPlayer = (currentPlayer + 1) % NUM_PLAYERS;
-                        break;
-                    }
+                    music.play(); musicF.play();
                 }
             }
-        } 
-
-        // Очистка экрана
-        window.clear();
-
-        // Рисование стола
-        window.draw(tableSprite);
-
-        // Рисование карт
-        // for (size_t i = 0; i < playerHand.size(); ++i) {
-        //     playerHand[i].sprite.setPosition(i * CARD_WIDTH + 200, WINDOW_HEIGHT - CARD_HEIGHT - 50);
-        //     window.draw(playerHand[i].sprite);
-        // }
-        // Отрисовка карт игроков
-        for (int i = 0; i < NUM_PLAYERS; ++i) {
-            drawCards(window, playerHands[i], i); 
-        } 
-        
-        // Рисование карт противника (лицевой стороной вниз)
-        // for (size_t i = 0; i < opponentHand.size(); ++i) {
-        //     opponentHand[i].sprite.setPosition(i * CARD_WIDTH + 200, 50); 
-        //     window.draw(opponentHand[i].sprite);
-        // }
-
-        // Проверка выигрыша
-        // if (checkWin(playerHand)) {
-        //     std::cout << "Вы выиграли!" << std::endl;
-        //     //  добавить визуальное отображение победы
-        //     break;
-        // } else if (checkWin(opponentHand)) {
-        //     std::cout << "Противник выиграл!" << std::endl;
-        //     //  добавить визуальное отображение поражения
-        //     break;
-        // }
-        // // Логика хода
-        // if (playerTurn) {
-        //     // Ход игрока
-        //     if (hasPair(playerHand)) {
-        //         // Найти пару в руке игрока
-        //         std::pair<size_t, size_t> pairIndices = findPair(playerHand); 
-        //         // Удалить пару из руки игрока
-        //         playerHand.erase(playerHand.begin() + pairIndices.second);
-        //         playerHand.erase(playerHand.begin() + pairIndices.first); 
-        //         // Передать ход противнику
-        //         playerTurn = false;
-        //     } else if (!deck.empty()) {
-        //         // Взять карту из колоды
-        //         playerHand.push_back(drawCard(deck));
-        //         // Передать ход противнику
-        //         playerTurn = false;
-        //     }
-        // } else {
-        //     // Ход противника (имитация)
-        //     if (hasPair(opponentHand)) {
-        //         // Найти пару в руке противника
-        //         std::pair<size_t, size_t> pairIndices = findPair(opponentHand); 
-        //         // Удалить пару из руки противника
-        //         opponentHand.erase(opponentHand.begin() + pairIndices.second);
-        //         opponentHand.erase(opponentHand.begin() + pairIndices.first); 
-        //         // Передать ход игроку
-        //         playerTurn = true;
-        //     } else if (!deck.empty()) {
-        //         // Взять карту из колоды
-        //         opponentHand.push_back(drawCard(deck));
-        //         // Передать ход игроку
-        //         playerTurn = true;
-        //     }
-        // }
-        // Проверка выигрыша
-        for (int i = 0; i < NUM_PLAYERS; ++i) {
-            if (checkWin(playerHands[i])) {
-                std::cout << "Игрок " << i + 1 << " выиграл!" << std::endl; 
-                // Можно добавить визуальное отображение победы
-                break;
-            }
         }
-        // Обновление окна
+    
+        // Обновление анимации
+        Time deltaTime = clock.restart();
+        animator.Update(deltaTime);
+
+        // Плавное осветление экрана меню
+        if (alpha > 0)
+        {
+            alpha -= 0.05;
+            backgroundBlack.setColor(Color(255, 255, 255, alpha));
+        } 
+        // Область отрисовки объектов      
+        window.clear();
+        window.draw(background);
+        window.draw(Titul);
+        mymenu.draw();
+        window.draw(sprite);
+        window.draw(backgroundBlack);
         window.display();
     }
-
     return 0;
 }
-
-// #include <windows.h>
-// #include <tchar.h>
-// int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
-// {
-//   MessageBox(NULL, _T("Welcome!"),
-//   _T("prog"), MB_OK);
-//   return 0;
-// }
-
-

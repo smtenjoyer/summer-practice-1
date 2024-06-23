@@ -1,9 +1,33 @@
 [
 {
   "directory": "C:/Users/Sopha/Desktop/proj/build",
-  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -DSFML_STATIC -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include -g -o CMakeFiles\\proj.dir\\main.cpp.obj -c C:\\Users\\Sopha\\Desktop\\proj\\main.cpp",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -DSFML_STATIC -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include -g -o CMakeFiles\\GameMenu.dir\\main.cpp.obj -c C:\\Users\\Sopha\\Desktop\\proj\\main.cpp",
   "file": "C:\\Users\\Sopha\\Desktop\\proj\\main.cpp",
-  "output": "CMakeFiles\\proj.dir\\main.cpp.obj"
+  "output": "CMakeFiles\\GameMenu.dir\\main.cpp.obj"
+},
+{
+  "directory": "C:/Users/Sopha/Desktop/proj/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -DSFML_STATIC -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include -g -o CMakeFiles\\GameMenu.dir\\gameMenu.cpp.obj -c C:\\Users\\Sopha\\Desktop\\proj\\gameMenu.cpp",
+  "file": "C:\\Users\\Sopha\\Desktop\\proj\\gameMenu.cpp",
+  "output": "CMakeFiles\\GameMenu.dir\\gameMenu.cpp.obj"
+},
+{
+  "directory": "C:/Users/Sopha/Desktop/proj/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -DSFML_STATIC -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include -g -o CMakeFiles\\GameMenu.dir\\AssetManager.cpp.obj -c C:\\Users\\Sopha\\Desktop\\proj\\AssetManager.cpp",
+  "file": "C:\\Users\\Sopha\\Desktop\\proj\\AssetManager.cpp",
+  "output": "CMakeFiles\\GameMenu.dir\\AssetManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/Sopha/Desktop/proj/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -DSFML_STATIC -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include -g -o CMakeFiles\\GameMenu.dir\\Animator.cpp.obj -c C:\\Users\\Sopha\\Desktop\\proj\\Animator.cpp",
+  "file": "C:\\Users\\Sopha\\Desktop\\proj\\Animator.cpp",
+  "output": "CMakeFiles\\GameMenu.dir\\Animator.cpp.obj"
+},
+{
+  "directory": "C:/Users/Sopha/Desktop/proj/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -DSFML_STATIC -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include -g -o CMakeFiles\\GameMenu.dir\\menupik.cpp.obj -c C:\\Users\\Sopha\\Desktop\\proj\\menupik.cpp",
+  "file": "C:\\Users\\Sopha\\Desktop\\proj\\menupik.cpp",
+  "output": "CMakeFiles\\GameMenu.dir\\menupik.cpp.obj"
 },
 {
   "directory": "C:/Users/Sopha/Desktop/proj/build",

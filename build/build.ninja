@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: proj
+# Project: GameMenu
 # Configurations: Debug
 # =============================================================================
 
@@ -41,39 +41,71 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/Sopha/Desktop/proj/build/
 # =============================================================================
-# Object build statements for EXECUTABLE target proj
+# Object build statements for EXECUTABLE target GameMenu
 
 
 #############################################
-# Order-only phony target for proj
+# Order-only phony target for GameMenu
 
-build cmake_object_order_depends_target_proj: phony || cmake_object_order_depends_target_sfml-graphics cmake_object_order_depends_target_sfml-system cmake_object_order_depends_target_sfml-window
+build cmake_object_order_depends_target_GameMenu: phony || cmake_object_order_depends_target_sfml-audio cmake_object_order_depends_target_sfml-graphics cmake_object_order_depends_target_sfml-system cmake_object_order_depends_target_sfml-window
 
-build CMakeFiles/proj.dir/main.cpp.obj: CXX_COMPILER__proj_unscanned_Debug C$:/Users/Sopha/Desktop/proj/main.cpp || cmake_object_order_depends_target_proj
+build CMakeFiles/GameMenu.dir/main.cpp.obj: CXX_COMPILER__GameMenu_unscanned_Debug C$:/Users/Sopha/Desktop/proj/main.cpp || cmake_object_order_depends_target_GameMenu
   DEFINES = -DSFML_STATIC
-  DEP_FILE = CMakeFiles\proj.dir\main.cpp.obj.d
+  DEP_FILE = CMakeFiles\GameMenu.dir\main.cpp.obj.d
   FLAGS = -g
   INCLUDES = -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include
-  OBJECT_DIR = CMakeFiles\proj.dir
-  OBJECT_FILE_DIR = CMakeFiles\proj.dir
+  OBJECT_DIR = CMakeFiles\GameMenu.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameMenu.dir
+
+build CMakeFiles/GameMenu.dir/gameMenu.cpp.obj: CXX_COMPILER__GameMenu_unscanned_Debug C$:/Users/Sopha/Desktop/proj/gameMenu.cpp || cmake_object_order_depends_target_GameMenu
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\GameMenu.dir\gameMenu.cpp.obj.d
+  FLAGS = -g
+  INCLUDES = -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include
+  OBJECT_DIR = CMakeFiles\GameMenu.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameMenu.dir
+
+build CMakeFiles/GameMenu.dir/AssetManager.cpp.obj: CXX_COMPILER__GameMenu_unscanned_Debug C$:/Users/Sopha/Desktop/proj/AssetManager.cpp || cmake_object_order_depends_target_GameMenu
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\GameMenu.dir\AssetManager.cpp.obj.d
+  FLAGS = -g
+  INCLUDES = -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include
+  OBJECT_DIR = CMakeFiles\GameMenu.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameMenu.dir
+
+build CMakeFiles/GameMenu.dir/Animator.cpp.obj: CXX_COMPILER__GameMenu_unscanned_Debug C$:/Users/Sopha/Desktop/proj/Animator.cpp || cmake_object_order_depends_target_GameMenu
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\GameMenu.dir\Animator.cpp.obj.d
+  FLAGS = -g
+  INCLUDES = -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include
+  OBJECT_DIR = CMakeFiles\GameMenu.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameMenu.dir
+
+build CMakeFiles/GameMenu.dir/menupik.cpp.obj: CXX_COMPILER__GameMenu_unscanned_Debug C$:/Users/Sopha/Desktop/proj/menupik.cpp || cmake_object_order_depends_target_GameMenu
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\GameMenu.dir\menupik.cpp.obj.d
+  FLAGS = -g
+  INCLUDES = -IC:/Users/Sopha/Desktop/proj/build/_deps/sfml-src/include
+  OBJECT_DIR = CMakeFiles\GameMenu.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameMenu.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target proj
+# Link build statements for EXECUTABLE target GameMenu
 
 
 #############################################
-# Link the executable bin\proj.exe
+# Link the executable GameMenu.exe
 
-build bin/proj.exe: CXX_EXECUTABLE_LINKER__proj_Debug CMakeFiles/proj.dir/main.cpp.obj | _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a || _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a
+build GameMenu.exe: CXX_EXECUTABLE_LINKER__GameMenu_Debug CMakeFiles/GameMenu.dir/main.cpp.obj CMakeFiles/GameMenu.dir/gameMenu.cpp.obj CMakeFiles/GameMenu.dir/AssetManager.cpp.obj CMakeFiles/GameMenu.dir/Animator.cpp.obj CMakeFiles/GameMenu.dir/menupik.cpp.obj | _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a _deps/sfml-build/lib/libsfml-audio-s-d.a _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a _deps/sfml-build/lib/libsfml-system-s-d.a C$:/msys64/mingw64/lib/libopenal.dll.a _deps/sfml-src/extlibs/libs-mingw/x64/libvorbisenc.a _deps/sfml-src/extlibs/libs-mingw/x64/libvorbisfile.a _deps/sfml-src/extlibs/libs-mingw/x64/libvorbis.a _deps/sfml-src/extlibs/libs-mingw/x64/libogg.a _deps/sfml-src/extlibs/libs-mingw/x64/libFLAC.a || _deps/sfml-build/lib/libsfml-audio-s-d.a _deps/sfml-build/lib/libsfml-graphics-s-d.a _deps/sfml-build/lib/libsfml-system-s-d.a _deps/sfml-build/lib/libsfml-window-s-d.a
   FLAGS = -g
-  LINK_LIBRARIES = _deps/sfml-build/lib/libsfml-graphics-s-d.a  _deps/sfml-build/lib/libsfml-window-s-d.a  _deps/sfml-build/lib/libsfml-system-s-d.a  -lopengl32  -lwinmm  -lgdi32  _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\proj.dir
+  LINK_LIBRARIES = _deps/sfml-build/lib/libsfml-graphics-s-d.a  _deps/sfml-build/lib/libsfml-system-s-d.a  _deps/sfml-build/lib/libsfml-window-s-d.a  _deps/sfml-build/lib/libsfml-audio-s-d.a  -lopengl32  -lgdi32  _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a  _deps/sfml-build/lib/libsfml-system-s-d.a  -lwinmm  C:/msys64/mingw64/lib/libopenal.dll.a  _deps/sfml-src/extlibs/libs-mingw/x64/libvorbisenc.a  _deps/sfml-src/extlibs/libs-mingw/x64/libvorbisfile.a  _deps/sfml-src/extlibs/libs-mingw/x64/libvorbis.a  _deps/sfml-src/extlibs/libs-mingw/x64/libogg.a  _deps/sfml-src/extlibs/libs-mingw/x64/libFLAC.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\GameMenu.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = bin\proj.exe
-  TARGET_IMPLIB = libproj.dll.a
-  TARGET_PDB = proj.exe.dbg
+  TARGET_FILE = GameMenu.exe
+  TARGET_IMPLIB = libGameMenu.dll.a
+  TARGET_PDB = GameMenu.exe.dbg
 
 
 #############################################
@@ -1901,6 +1933,8 @@ build _deps/sfml-build/src/SFML/Audio/install/strip: phony _deps/sfml-build/src/
 # =============================================================================
 # Target aliases.
 
+build GameMenu: phony GameMenu.exe
+
 build libsfml-audio-s-d.a: phony _deps/sfml-build/lib/libsfml-audio-s-d.a
 
 build libsfml-graphics-s-d.a: phony _deps/sfml-build/lib/libsfml-graphics-s-d.a
@@ -1912,10 +1946,6 @@ build libsfml-network-s-d.a: phony _deps/sfml-build/lib/libsfml-network-s-d.a
 build libsfml-system-s-d.a: phony _deps/sfml-build/lib/libsfml-system-s-d.a
 
 build libsfml-window-s-d.a: phony _deps/sfml-build/lib/libsfml-window-s-d.a
-
-build proj: phony bin/proj.exe
-
-build proj.exe: phony bin/proj.exe
 
 build sfml-audio: phony _deps/sfml-build/lib/libsfml-audio-s-d.a
 
@@ -1937,7 +1967,7 @@ build sfml-window: phony _deps/sfml-build/lib/libsfml-window-s-d.a
 #############################################
 # Folder: C:/Users/Sopha/Desktop/proj/build
 
-build all: phony bin/proj.exe _deps/sfml-build/all
+build all: phony GameMenu.exe _deps/sfml-build/all
 
 # =============================================================================
 

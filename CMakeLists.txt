@@ -1,8 +1,5 @@
-cmake_minimum_required(VERSION 3.16)
-project(proj LANGUAGES CXX)
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+cmake_minimum_required(VERSION 3.21)
+project(GameMenu VERSION 0.0.1 LANGUAGES CXX)
 
 include(FetchContent)
 FetchContent_Declare(SFML
@@ -10,48 +7,49 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(proj main.cpp)
-target_link_libraries(proj sfml-graphics)
-target_compile_features(proj PRIVATE cxx_std_17)
 
-# if(WIN32)
-#     add_custom_command(
-#         TARGET proj
-#         COMMENT "Copy OpenAL DLL"
-#         PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:main>
-#         VERBATIM)
+add_executable(GameMenu main.cpp GameMenu.cpp GameMenu.h AssetManager.cpp AssetManager.h Animator.cpp Animator.h menupik.h menupik.cpp )
+
+
+# add_custom_command(TARGET GameMenu POST_BUILD
+                   
+#                    COMMAND ${CMAKE_COMMAND}
+#                    ARGS -E copy_directory
+#                         # ${PROJECT_SOURCE_DIR}/audio
+#                         # $<TARGET_FILE_DIR:GameMenu>/audio
+#                    VERBATIM)
+# add_custom_command(TARGET GameMenu POST_BUILD                
+#                    COMMAND ${CMAKE_COMMAND}
+#                    ARGS -E copy_directory
+#                         ${PROJECT_SOURCE_DIR}/font
+#                         $<TARGET_FILE_DIR:GameMenu>/font
+#                    VERBATIM)
+# add_custom_command(TARGET GameMenu POST_BUILD                
+#                    COMMAND ${CMAKE_COMMAND}
+#                    ARGS -E copy_directory
+#                         ${PROJECT_SOURCE_DIR}/image
+#                         $<TARGET_FILE_DIR:GameMenu>/image
+#                    VERBATIM)
+				   
+# add_custom_command(
+#   TARGET GameMenu POST_BUILD
+#   COMMAND ${CMAKE_COMMAND} -E copy 
+#     ${PROJECT_SOURCE_DIR}/openal32.dll
+#     $<TARGET_FILE_DIR:GameMenu>/openal32.dll)
+
+target_link_libraries(GameMenu PRIVATE sfml-graphics sfml-system sfml-window sfml-audio )
+
+target_compile_features(GameMenu PRIVATE cxx_std_14)
+
+# if (WIN32 AND BUILD_SHARED_LIBS)
+#     add_custom_command(TARGET GameMenu POST_BUILD
+#         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:GameMenu> $<TARGET_FILE_DIR:GameMenu> COMMAND_EXPAND_LISTS)
 # endif()
-# cmake_minimum_required(VERSION 3.16)
-# project(proj LANGUAGES CXX)
 
-# # Устанавливаем стандарт C++
-# set(CMAKE_CXX_STANDARD 17)
+# install(TARGETS GameMenu)
 
-# # Указываем директории с заголовочными файлами SFML
-# include_directories(
-#     # ${CMAKE_CURRENT_SOURCE_DIR}
-#     /C:/Users/Sopha/Downloads/SFML-2.6.1-windows-gcc-13.1.0-mingw-64-bit/SFML-2.6.1/include 
-# )
-
-# # Указываем директорию с библиотеками SFML
-# link_directories(
-#     /C:/Users/Sopha/Downloads/SFML-2.6.1-windows-gcc-13.1.0-mingw-64-bit/SFML-2.6.1/lib
-# )
-# add_executable(proj main.cpp)
-
-# # Подключение библиотек SFML
-# target_link_libraries(proj sfml-graphics)
-
-# # target_compile_options(main PRIVATE -std=c++17) 
-
-# # Устанавливаем стандарт C++ для проекта
-# target_compile_features(proj PRIVATE cxx_std_17)
-
-# # Копирование OpenAL DLL (если нужно)
-# if(WIN32)
-#     add_custom_command(
-#         TARGET proj
-#         COMMENT "Copy OpenAL DLL"
-#         PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/sfml/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:proj>
-#         VERBATIM)
-# endif() 
+# Директория с СMakeLists.txt
+# cmake -S . -B build
+# cmake --build build --config Release
+# cmake --build build --config Debug
+# Для запуска проекта выбрать активный проект

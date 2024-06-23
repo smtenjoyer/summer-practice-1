@@ -1,4 +1,4 @@
-C:/Users/Sopha/Desktop/proj/build/CMakeFiles/proj.dir
+C:/Users/Sopha/Desktop/proj/build/CMakeFiles/GameMenu.dir
 C:/Users/Sopha/Desktop/proj/build/CMakeFiles/package.dir
 C:/Users/Sopha/Desktop/proj/build/CMakeFiles/package_source.dir
 C:/Users/Sopha/Desktop/proj/build/CMakeFiles/edit_cache.dir
