@@ -10,12 +10,12 @@ using namespace sf;
 
 void InitText(Text& mtext, float xpos, float ypos, String str, int size_font=60,Color menu_text_color=Color::White, int bord=0, Color border_color = Color::Black );
 
-void GamaStart();
+int GamaStart(sf::RenderWindow& window);
 
 //Настройки
-void Options();
+int Options(sf::RenderWindow& window);
 
 // Об Игре
-void About_Game();
+int About_Game(sf::RenderWindow& window);
 
-int Menu_pik_Dam(); 
+int Menu_pik_Dam(sf::RenderWindow& window); 

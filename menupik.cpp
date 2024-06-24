@@ -17,9 +17,9 @@ void Init_Text(Text& mtext, float xpos, float ypos, String str, int size_font=60
 
 }
 
-void Game_Start()
+int Game_Start(sf::RenderWindow& Play)
 {
-    RenderWindow Play(VideoMode::getDesktopMode(), L"Уровень", Style::Fullscreen);
+    // RenderWindow Play(VideoMode::getDesktopMode(), L"Уровень", Style::Fullscreen);
 
 
     RectangleShape background_play(Vector2f(1920, 1080));
@@ -35,7 +35,7 @@ void Game_Start()
         {
             if (event_play.type == Event::KeyPressed)
             {
-                if (event_play.key.code == Keyboard::Escape) { Play.close(); }
+                if (event_play.key.code == Keyboard::Escape) { return 0; }
             }
         }
         Play.clear();
@@ -45,9 +45,9 @@ void Game_Start()
 }
 
 //Настройки
-void Optionis()
+int Optionis(sf::RenderWindow& Optionis)
 {
-    RenderWindow Optionis(VideoMode::getDesktopMode(), L"Настройки", Style::Fullscreen);
+    // RenderWindow Optionis(VideoMode::getDesktopMode(), L"Настройки", Style::Fullscreen);
 
     RectangleShape background_opt(Vector2f(1920, 1080));
     Texture texture_opt;
@@ -59,10 +59,10 @@ void Optionis()
         Event event_opt;
         while (Optionis.pollEvent(event_opt))
         {
-            if (event_opt.type == Event::Closed) Optionis.close();
+            if (event_opt.type == Event::Closed) return 0;
             if (event_opt.type == Event::KeyPressed)
             {
-                if (event_opt.key.code == Keyboard::Escape) Optionis.close();
+                if (event_opt.key.code == Keyboard::Escape) return 0;
             }
         }
         Optionis.clear();
@@ -73,9 +73,9 @@ void Optionis()
 }
 
 // Об Игре
-void About_Game_Pik()
+int About_Game_Pik(sf::RenderWindow& About)
 {
-    RenderWindow About(VideoMode::getDesktopMode(), L"Правила игры", Style::Fullscreen);
+    // RenderWindow About(VideoMode::getDesktopMode(), L"Правила игры", Style::Fullscreen);
 
     RectangleShape background_ab(Vector2f(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().height));
     Texture texture_ab;
@@ -95,10 +95,10 @@ void About_Game_Pik()
         Event event_play;
         while (About.pollEvent(event_play))
         {
-            if (event_play.type == Event::Closed) About.close();
+            if (event_play.type == Event::Closed) return 0;
             if (event_play.type == Event::KeyPressed)
             {
-                if (event_play.key.code == Keyboard::Escape) About.close();
+                if (event_play.key.code == Keyboard::Escape) return 0;
             }
         }
         About.clear();
@@ -108,15 +108,15 @@ void About_Game_Pik()
     }
 }
 
-int Menu_pik_Dam() 
+int Menu_pik_Dam(sf::RenderWindow& window) 
 {
     setlocale(LC_ALL, "Russian");
-    // Инициализация окна SFML
-    sf::RenderWindow window(sf::VideoMode::getDesktopMode(),  L"Пиковая Дама", Style::Fullscreen);
+    // // Инициализация окна SFML
+    // sf::RenderWindow window(sf::VideoMode::getDesktopMode(),  L"Пиковая Дама", Style::Fullscreen);
     
-    // Делаем окно windows прозрачным
-    SetWindowLong(window.getSystemHandle(), GWL_EXSTYLE, GetWindowLong(window.getSystemHandle(), GWL_EXSTYLE) | WS_EX_LAYERED);
-    SetLayeredWindowAttributes(window.getSystemHandle(), 0, 0, LWA_COLORKEY);
+    // // Делаем окно windows прозрачным
+    // SetWindowLong(window.getSystemHandle(), GWL_EXSTYLE, GetWindowLong(window.getSystemHandle(), GWL_EXSTYLE) | WS_EX_LAYERED);
+    // SetLayeredWindowAttributes(window.getSystemHandle(), 0, 0, LWA_COLORKEY);
 
     window.setMouseCursorVisible(false); //отключаем видимость курсора
 
@@ -223,10 +223,10 @@ int Menu_pik_Dam()
                         // Переходим на выбранный пункт меню
                         switch (mymenu.getSelectedMenuNumber())
                         {
-                            case 0:Game_Start();  break;
-                            case 1:Optionis();     break;
-                            case 2:About_Game_Pik();  break;
-                            case 3:window.close(); break;
+                            case 0:Game_Start(window);  break;
+                            case 1:Optionis(window);     break;
+                            case 2:About_Game_Pik(window);  break;
+                            case 3:return 0; break;
                         }
                     music.play(); musicF.play();
                 }

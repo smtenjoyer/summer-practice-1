@@ -18,33 +18,6 @@ void InitTexts(Text& mtext, float xpos, float ypos, String str, int size_font=60
 
 }
 
-void GamaStart()
-{
-    RenderWindow Play(VideoMode::getDesktopMode(), L"Уровень", Style::Fullscreen);
-
-
-    RectangleShape background_play(Vector2f(1920, 1080));
-
-    Texture texture_play;
-    if (!texture_play.loadFromFile("C:/Users/Sopha/Desktop/proj/table.png")) exit(1);
-    background_play.setTexture(&texture_play);
-
-    while (Play.isOpen())
-    {
-        Event event_play;
-        while (Play.pollEvent(event_play))
-        {
-            if (event_play.type == Event::KeyPressed)
-            {
-                if (event_play.key.code == Keyboard::Escape) { Play.close(); }
-            }
-        }
-        Play.clear();
-        Play.draw(background_play);
-        Play.display();
-    }
-}
-
 //Настройки
 void Options()
 {
@@ -224,7 +197,7 @@ int main()
                         // Переходим на выбранный пункт меню
                         switch (mymenu.getSelectedMenuNumber())
                         {
-                            case 0:Menu_pik_Dam();  break;
+                            case 0:Menu_pik_Dam(window);  break;
                             case 1:Options();     break;
                             case 2:About_Game();  break;
                             case 3:window.close(); break;
